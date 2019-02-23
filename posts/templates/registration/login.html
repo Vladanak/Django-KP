@@ -1,0 +1,26 @@
+{% extends 'baseReg.html' %}
+
+{% block content %}
+       <div class="container text-center">
+                <h1 class="text-primary">Пожалуйста авторизуйтесь</h1>
+            </div>
+    {% csrf_token %}
+            <form method="post">
+                <div class="form-row">
+                      <form  method="post">
+                          {% csrf_token %}
+                        <div class="col">
+                          <input type="text" class="form-control" name="username" id="username" placeholder="Имя пользователя">
+                        </div>
+                        <div class="col">
+                          <input type="password" class="form-control" name="password" id="password" placeholder="Пароль">
+                        </div>
+                          <input type="hidden" name="next" value="" />
+                          <button type="Submit" class="btn btn-primary">Войти</button>
+                      </form>
+                </div>
+            </form>
+            <div class="container text-center">
+                <h1 class="text-danger">Нет пользователя? Тогда пожалуйста <a href="/registration" class="text-primary">Зарегистрируйтесь</a></h1>
+            </div>
+{% endblock %}

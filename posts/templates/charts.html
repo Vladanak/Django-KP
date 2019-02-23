@@ -1,0 +1,238 @@
+{% extends 'template.html' %}
+
+<script>
+    {% block jquery %}
+        var endpoit = '/user/{{ user }}/charts';
+        var defaultData = [];
+        var labels = [];
+        var chart_plan = [];
+        var chart_plan_rez = [];
+        var chart_clock = [];
+        var chart_clock_rez = [];
+       $.ajax({
+           method: "GET",
+           url: endpoit,
+           success: function (data) {
+               labels = data.labels;
+               defaultData = data.default,
+               chart_plan = data.chartPlan,
+               chart_plan_rez = data.chartPlanRez,
+               chart_clock = data.chartClock,
+               chart_clock_rez = data.chartClockRez,
+               setChart()
+           },
+           error: function (error_data) {
+               console.log("error")
+               console.log(error_data)
+           }
+       });
+function setChart() {
+    var ctx3 = document.getElementById("myChart3").getContext('2d');
+    var ctx4 = document.getElementById("myChart4").getContext('2d');
+    var ctx5 = document.getElementById("myChart5").getContext('2d');
+    var ctx6 = document.getElementById("myChart6").getContext('2d');
+    var ctx7 = document.getElementById("myChart7").getContext('2d');
+    var myChart = new Chart(ctx3, {
+    type: 'horizontalBar',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'План каждому работнику',
+            data: chart_plan,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+    var myChart = new Chart(ctx4, {
+    type: 'horizontalBar',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Результат выполнение плана',
+            data: chart_plan_rez,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+    var myChart = new Chart(ctx5, {
+    type: 'horizontalBar',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'План работы по часам',
+            data: chart_clock,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+    var myChart = new Chart(ctx6, {
+    type: 'horizontalBar',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Результат отработанных часов',
+            data: chart_clock_rez,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+    var myChart = new Chart(ctx7, {
+    type: 'horizontalBar',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Количество брака',
+            data: defaultData,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+}
+    {% endblock %}
+</script>
+
+{% block content %}
+    <div class='row'>
+            <div class="col-sm-6">
+                <canvas id="myChart3" width="400" height="400"></canvas>
+            </div>
+            <div class="col-sm-6">
+                <canvas id="myChart4" width="400" height="400"></canvas>
+            </div>
+            <div class="col-sm-6">
+                <canvas id="myChart5" width="400" height="400"></canvas>
+            </div>
+            <div class="col-sm-6">
+                <canvas id="myChart6" width="400" height="400"></canvas>
+            </div>
+            <div class="container text-center col-sm-8">
+                <canvas id="myChart7" width="400" height="400"></canvas>
+            </div>
+    </div>
+           <div class='col-sm-12' url-endpoint='{% url "api-data" %}'>
+{% endblock content %}

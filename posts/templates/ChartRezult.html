@@ -1,0 +1,233 @@
+{% extends 'template.html' %}
+
+<script>
+    {% block jquery %}
+        var endpoit = '/user/{{ user }}/chartResult';
+        var defaultData = [];
+        var labels = [];
+       $.ajax({
+           method: "GET",
+           url: endpoit,
+           success: function (data) {
+               labels = data.labels,
+               defaultData = data.default,
+               setChart()
+           },
+           error: function (error_data) {
+               console.log("error");
+               console.log(error_data)
+           }
+       });
+function setChart() {
+    var ctx = document.getElementById("myChart").getContext('2d');
+    var ctx2 = document.getElementById("myChart2").getContext('2d');
+    var myChart = new Chart(ctx, {
+    type: 'polarArea',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Результат работы',
+            data: defaultData,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+    var myChart = new Chart(ctx2, {
+    type: 'horizontalBar',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: "Результат работы",
+            data: defaultData,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+
+}
+    {% endblock %}
+</script>
+
+{% block content %}
+    <div class='row'>
+            <div class="col-sm-6">
+                <canvas id="myChart" width="400" height="400"></canvas>
+            </div>
+            <div class="col-sm-6">
+                <canvas id="myChart2" width="400" height="400"></canvas>
+            </div>
+    </div>
+
+    <div class="col-md-12 column">
+        <div class="container text-center"><h3>Работники на дополнительную премию</h3></div>
+        <table class="table">
+                 <thead>
+                 <tr>
+                     <th>Фамилия Имя Отчество</th>
+                     <th>Специальность</th>
+                     <th>Коэфициент выполнения плана в %</th>
+                     <th>Коэфициент отработанного времени в %</th>
+                     <th>Коэфициент брака в %</th>
+                     <th>Результат работы в %</th>
+                 </tr>
+                 </thead>
+            {% for post in posts %}
+                 <tbody>
+                    <tr>
+                        {% if post.plan_all > 100 %}
+                        <td>{{ post.text }}</td>
+                        <td>{{ post.specialty }}</td>
+                        <td>{{ post.plan_rez_all }}</td>
+                        <td>{{ post.plan_clock_all }}</td>
+                        <td>{{ post.plan_defect_all }}</td>
+                        <td>{{ post.plan_all}}</td>
+                        {% endif %}
+                     </tr>
+                 </tbody>
+            {% endfor %}
+        </table>
+    </div>
+     <div class="col-md-12 column">
+        <div class="container text-center"><h3>Работники выполневшие норму</h3></div>
+        <table class="table">
+                 <thead>
+                 <tr>
+                     <th>Фамилия Имя Отчество</th>
+                     <th>Специальность</th>
+                     <th>Коэфициент выполнения плана в %</th>
+                     <th>Коэфициент отработанного времени в %</th>
+                     <th>Коэфициент брака в %</th>
+                     <th>Результат работы в %</th>
+                 </tr>
+                 </thead>
+            {% for post in posts %}
+                 <tbody>
+                     <tr>
+                        {% if post.plan_all <= 100 and post.plan_all >= 70%}
+                        <td>{{ post.text }}</td>
+                        <td>{{ post.specialty }}</td>
+                        <td>{{ post.plan_rez_all }}</td>
+                        <td>{{ post.plan_clock_all }}</td>
+                        <td>{{ post.plan_defect_all }}</td>
+                        <td>{{ post.plan_all}}</td>
+                        {% endif %}
+                     </tr>
+                 </tbody>
+            {% endfor %}
+           </table>
+    </div>
+    <div class="col-md-12 column">
+        <div class="container text-center"><h3>Работники на лишение премии</h3></div>
+        <table class="table">
+                 <thead>
+                 <tr>
+                     <th>Фамилия Имя Отчество</th>
+                     <th>Специальность</th>
+                     <th>Коэфициент выполнения плана в % </th>
+                     <th>Коэфициент отработанного времени в %</th>
+                     <th>Коэфициент брака в %</th>
+                     <th>Результат работы в %</th>
+                 </tr>
+                 </thead>
+            {% for post in posts %}
+                 <tbody>
+                     <tr>
+                        {% if post.plan_all < 70 and post.plan_all >= 30%}
+                        <td>{{ post.text }}</td>
+                        <td>{{ post.specialty }}</td>
+                        <td>{{ post.plan_rez_all }}</td>
+                        <td>{{ post.plan_clock_all }}</td>
+                        <td>{{ post.plan_defect_all }}</td>
+                        <td>{{ post.plan_all}}</td>
+                        {% endif %}
+                     </tr>
+                 </tbody>
+            {% endfor %}
+           </table>
+    </div>
+    <div class="col-md-12 column">
+        <div class="container text-center"><h3>Работники на увольнение</h3></div>
+        <table class="table">
+                 <thead>
+                 <tr>
+                     <th>Фамилия Имя Отчество</th>
+                     <th>Специальность</th>
+                     <th>Коэфициент выполнения плана в %</th>
+                     <th>Коэфициент отработанного времени в %</th>
+                     <th>Коэфициент брака в %</th>
+                     <th>Результат работы в %</th>
+                 </tr>
+                 </thead>
+            {% for post in posts %}
+                 <tbody>
+                     <tr>
+                        {% if post.plan_all <= 30 %}
+                        <td>{{ post.text }}</td>
+                        <td>{{ post.specialty }}</td>
+                        <td>{{ post.plan_rez_all }}</td>
+                        <td>{{ post.plan_clock_all }}</td>
+                        <td>{{ post.plan_defect_all }}</td>
+                        <td>{{ post.plan_all}}</td>
+                        {% endif %}
+                     </tr>
+                 </tbody>
+            {% endfor %}
+           </table>
+    </div>
+    <div class="container text-center">
+        <form class="test1" action="pdf/" method="get" >
+                <button type="Submit" class="btn btn-primary">Отправить отчет на печать</button>
+        </form>
+    </div>
+           <div class='col-sm-12' url-endpoint='{% url "api-data" %}'>
+{% endblock  %}

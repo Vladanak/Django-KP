@@ -1,0 +1,11 @@
+{% extends 'baseReg.html' %}
+
+  {% block content %}
+             <br>
+        <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <h1>{{ text }}</h1>
+            <button class="btn btn-primary" type="sumbit">Регистрация</button>
+        </form>
+  {% endblock %}

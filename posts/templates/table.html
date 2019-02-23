@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="col-md-12 column">
+        <table class="table">
+                 <thead>
+                 <tr>
+                     <th>Фамилия Имя Отчество</th>
+                     <th>Специальность</th>
+                     <th>План на месяц</th>
+                     <th>Результат по факту за месяц </th>
+                     <th>План по времени на месяц</th>
+                     <th>Результат времени по факту</th>
+                     <th>Количество дефектных изделий</th>
+                 </tr>
+                 </thead>
+            {% for post in posts %}
+                 <tbody>
+                    <tr>
+                        <td>{{ post.text }}</td>
+                        <td>{{ post.specialty }}</td>
+                        <td>{{ post.plan }}</td>
+                        <td>{{ post.plan_rez }}</td>
+                        <td>{{ post.plan_clock }}</td>
+                        <td>{{ post.plan_clock_rez }}</td>
+                        <td>{{ post.plan_defect }}</td>
+                        <td><a href="edit/{{post.id}}">Изменить</a> | <a href="delete/{{post.id}}">Удалить</a></td>
+                     </tr>
+                 </tbody>
+            {% endfor %}
+        </table>
+    </div>
+        <form class="test1" action="chart/" method="get" >
+                <button type="Submit" class="btn btn-primary">Просморт графиков</button>
+        </form>
+        <form class="test1" action="result/" method="get" >
+                <button type="Submit" class="btn btn-primary">Анализ результативности</button>
+        </form>
+        <form class="test1" action="resultAll/" method="get" >
+                <button type="Submit" class="btn btn-primary">Анализ среди цехов</button>
+        </form>
+        <form class="test1" action="addUser/" method="get" >
+                <button type="Submit" class="btn btn-primary">Добавить работника</button>
+        </form>
+{% endblock %}

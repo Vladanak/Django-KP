@@ -1,0 +1,214 @@
+{% extends 'template.html' %}
+
+<script>
+    {% block jquery %}
+        var endpoit = '/user/{{ user }}/resultAllL';
+        var defaultData = [];
+        var labels = [];
+        var rez_all = [];
+        var rez_all_defect = [];
+       $.ajax({
+           method: "GET",
+           url: endpoit,
+           success: function (data) {
+               labels = data.labels,
+               defaultData = data.default,
+               rez_all = data.rez_all,
+               rez_all_defect = data.rez_all_defect,
+               setChart()
+           },
+           error: function (error_data) {
+               console.log("error");
+               console.log(error_data)
+           }
+       });
+function setChart() {
+    var ctx = document.getElementById("myChart").getContext('2d');
+    var ctx1 = document.getElementById("myChart1").getContext('2d');
+    var ctx2 = document.getElementById("myChart2").getContext('2d');
+    var myChart = new Chart(ctx, {
+    type: 'polarArea',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Результат работы',
+            data: defaultData,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+    var myChart = new Chart(ctx1, {
+    type: 'polarArea',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Результат работы',
+            data: rez_all,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+    var myChart = new Chart(ctx2, {
+    type: 'polarArea',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Результат работы',
+            data: rez_all_defect,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+}
+    {% endblock %}
+</script>
+
+{% block content %}
+    <div class='row'>
+            <div class="container text-center col-sm-8">
+                <canvas id="myChart" width="400" height="400"></canvas>
+            </div>
+    </div>
+
+    <div class="col-md-12 column">
+        <div class="container text-center"><h3>Процент результативности между цехами</h3></div>
+        <table class="table">
+                 <tbody>
+                    <tr>
+                     {% for post in labels %}
+                        <td>{{ post }}</td>
+                     {% endfor %}
+                    </tr>
+                    <tr>
+                     {% for label in default %}
+                        <td>{{ label }} %</td>
+                     {% endfor %}
+                    </tr>
+                 </tbody>
+        </table>
+    </div>
+
+    <div class='row'>
+            <div class="container text-center col-sm-8">
+                <canvas id="myChart1" width="400" height="400"></canvas>
+            </div>
+    </div>
+
+    <div class="col-md-12 column">
+        <div class="container text-center"><h3>Процент выполнения доводимых планов для цеха</h3></div>
+        <table class="table">
+                 <tbody>
+                    <tr>
+                     {% for post in labels %}
+                        <td>{{ post }}</td>
+                     {% endfor %}
+                    </tr>
+                    <tr>
+                     {% for label in rez_all %}
+                        <td>{{ label }} %</td>
+                     {% endfor %}
+                    </tr>
+                 </tbody>
+        </table>
+    </div>
+
+    <div class='row'>
+            <div class="container text-center col-sm-8">
+                <canvas id="myChart2" width="400" height="400"></canvas>
+            </div>
+    </div>
+
+    <div class="col-md-12 column">
+        <div class="container text-center"><h3>Процент брака в цехах</h3></div>
+        <table class="table">
+                 <tbody>
+                    <tr>
+                     {% for post in labels %}
+                        <td>{{ post }}</td>
+                     {% endfor %}
+                    </tr>
+                    <tr>
+                     {% for label in rez_all_defect %}
+                        <td>{{ label }} %</td>
+                     {% endfor %}
+                    </tr>
+                 </tbody>
+        </table>
+    </div>
+           <div class='col-sm-12' url-endpoint='{% url "api-data" %}'>
+{% endblock  %}

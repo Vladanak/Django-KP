@@ -1,0 +1,7 @@
+{% extends 'logout.html' %}
+{% block jquery %}
+    var cookies = $.cookie();
+for(var cookie in cookies) {
+$.removeCookie(cookie);
+}
+{% endblock %}

@@ -1,0 +1,29 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>График результатов работы</title>
+        <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+          <style>
+         body {
+        background-image: url({% static "images/circles-and-roundabouts.png" %}); /* Путь к фоновому изображению */
+        }
+         </style>
+    </head>
+    <body>
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <script src="{% static 'js/Chart.min.js' %}"></script>
+        <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+        <script src="{% static 'css/bootstrap.min.js' %}"></script>
+        <script>
+            $(document).ready(function () {
+                {% block jquery %}
+                {% endblock %}
+            })
+        </script>
+    </body>
+</html>

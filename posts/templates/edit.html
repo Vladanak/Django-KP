@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block search %}
+    <form method="POST">
+        {% csrf_token %}
+        <p>
+            <label>Введите имя</label><br>
+            <input type="text" class="form-control" name="text" value="{{person.text}}" />
+        </p>
+        <p>
+            <label>Введите специальность</label><br>
+            <input type="text" class="form-control" name="specialty" value="{{person.specialty}}" />
+        </p>
+        <p>
+            <label>Введите план</label><br>
+            <input type="number" class="form-control" name="plan" value="{{person.plan}}" />
+        </p>
+        <p>
+            <label>Введите резльтутат работы</label><br>
+            <input type="number" class="form-control" name="plan_rez" value="{{person.plan_rez}}" />
+        </p>
+        <p>
+            <label>Введите план времени выполнения</label><br>
+            <input type="number" class="form-control" name="plan_clock" value="{{person.plan_clock}}" />
+        </p>
+        <p>
+            <label>Введите результат выполнение времени</label><br>
+            <input type="number" class="form-control" name="plan_clock_rez" value="{{person.plan_clock_rez}}" />
+        </p>
+         <p>
+            <label>Введите результат выполнение времени</label><br>
+            <input type="number" class="form-control" name="plan_defect" value="{{person.plan_defect}}" />
+        </p>
+        <input type="submit" class="btn btn-primary" value="Сохранить" >
+    </form>
+{% endblock %}
