@@ -3,8 +3,6 @@ function initNavbar() {
     var SCROLL_SPEED = 750;
     var SCROLL_OFFSET = 50;
     var EASING = "swing";
-
-    var $navTop = $("#navbar-top");
     var $navBar = $(".navbar");
     var $navExternal = $(".nav-external");
 

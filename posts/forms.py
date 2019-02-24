@@ -6,12 +6,12 @@ class PostForm(forms.Form):
         'size': 30,
         'class': 'form-control',
         'placeholder': 'Введите ФИО работника'
-    }), max_length=100)
+    }), max_length=100, min_length=3)
     specialty = forms.CharField(widget=forms.TextInput(attrs={
         'size': 30,
         'class': 'form-control',
         'placeholder': 'Введите специальность',
-    }), max_length=30)
+    }), max_length=30, min_length=1)
     plan = forms.IntegerField(widget=forms.NumberInput(attrs={
         'size': 30,
         'class': 'form-control',
