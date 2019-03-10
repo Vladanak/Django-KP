@@ -116,6 +116,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+LOGIN_URL = '/'
+
 ADMIN_SITE_HEADER = "Администрирование персонала"
 
 TEMPLATE_DIRS = (os.path.join(BASE_DIR,  'templates'),)
@@ -123,4 +125,4 @@ TEMPLATE_DIRS = (os.path.join(BASE_DIR,  'templates'),)
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-STATIC_ROOT = os.path.join(BASE_DIR, 'posts\\templates\\')
+STATIC_ROOT = os.path.join(BASE_DIR, 'posts/templates/')

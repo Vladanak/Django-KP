@@ -44,13 +44,3 @@ class SearchForm(forms.Form):
         'size': 30,
         'class': 'form-control search-query',
     }))
-
-
-class SearchTagForm(forms.Form):
-    q = forms.CharField(widget=forms.TextInput(attrs={
-        'size': 30,
-        'class': 'form-control search-tag-query typehead',
-        'id': 'typehead',
-        'autofocus': 'autofocus',
-        'placeholder': 'start typing...'
-    }))

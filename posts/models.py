@@ -25,14 +25,6 @@ class Post(models.Model):
         return self.text[:50]
 
 
-class HashTag(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    post = models.ManyToManyField(Post)
-
-    def __str__(self):
-        return self.name
-
-
 class AllRequest(models.Model):
     user = models.CharField(max_length=100)
     cex_result = models.BigIntegerField(default='0')

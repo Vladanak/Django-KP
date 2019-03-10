@@ -32,36 +32,3 @@
         </table>
         {% endif %}
     </div>
-<!--
-<div class="col-md-12 column">
-        {% for post in posts %}
-            <div class="well">
-                <h6> ФИО : {{ post.text }}
-                    || Специальность : {{ post.specialty }}
-                    || План на месяц : {{ post.plan }}
-                    || План по факту за месяц : {{ post.plan_rez }}
-                </h6>
-            <p></p>
-            <p>
-                <i class="icon-user"></i><a href="/user/{{ post.user }}">{{ post.user }}</a>
-               | {{ post.created_date | date:"d/m/Y" }}
-               | <a href="#"><i class="glyphicon glyphicon-comment"></i> Comments</a>
-               | <a href="#"><i class="glyphicon glyphicon-share-alt"></i> Shares</a>
-                {% if post.hashtag_set.all|length > 0 %}
-               | <i class="icon-tags"></i> Tags:
-                {% for hashtag in post.hashtag_set.all %}
-                 <a href="#"><span class="label label-info">{{ hashtag }}</span> </a>
-                {% endfor %}
-                {% endif %}
-            </p>
-            </div>
-        {%endfor %}
-
-        {% if not posts %}
-            <h3>К сожалению такого работника у нас нет.</h3>
-        {% endif %}
-
-</div>
-
-
---!>
