@@ -139,6 +139,7 @@ function setChart() {
 </script>
 
 {% block content %}
+	<button class="btn btn-info pull-right"  onclick='window.history.back()'> Назад </button>
     <div class='row'>
             <div class="container text-center col-sm-8">
                 <canvas id="myChart" width="400" height="400"></canvas>
@@ -146,7 +147,7 @@ function setChart() {
     </div>
 
     <div class="col-md-12 column">
-        <div class="container text-center"><h3>Процент результативности между цехами</h3></div>
+        <div class="container text-center"><h3>Процент результативности между отделам</h3></div>
         <table class="table">
                  <tbody>
                     <tr>
@@ -170,7 +171,7 @@ function setChart() {
     </div>
 
     <div class="col-md-12 column">
-        <div class="container text-center"><h3>Процент выполнения доводимых планов для цеха</h3></div>
+        <div class="container text-center"><h3>Процент выполнения доводимых планов для отдела</h3></div>
         <table class="table">
                  <tbody>
                     <tr>
@@ -194,7 +195,7 @@ function setChart() {
     </div>
 
     <div class="col-md-12 column">
-        <div class="container text-center"><h3>Процент брака в цехах</h3></div>
+        <div class="container text-center"><h3>Процент недочётов в отделах</h3></div>
         <table class="table">
                  <tbody>
                     <tr>

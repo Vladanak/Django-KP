@@ -5,13 +5,13 @@
         <table class="table">
                  <thead>
                  <tr>
-                     <th>Фамилия Имя Отчество</th>
+                     <th>Ф.И.О.</th>
                      <th>Специальность</th>
                      <th>План на месяц</th>
-                     <th>Результат по факту за месяц </th>
+                     <th>Результат по факту за месяц</th>
                      <th>План по времени на месяц</th>
                      <th>Результат времени по факту</th>
-                     <th>Количество дефектных изделий</th>
+                     <th>Количество недочётов</th>
                  </tr>
                  </thead>
             {% for post in posts %}
@@ -37,9 +37,7 @@
                 <button type="Submit" class="btn btn-primary">Анализ результативности</button>
         </form>
         <form class="test1" action="resultAll/" method="get" >
-                <button type="Submit" class="btn btn-primary">Анализ среди цехов</button>
+                <button type="Submit" class="btn btn-primary">Анализ среди отделов</button>
         </form>
-        <form class="test1" action="addUser/" method="get" >
-                <button type="Submit" class="btn btn-primary">Добавить работника</button>
-        </form>
+		<br/>
 {% endblock %}

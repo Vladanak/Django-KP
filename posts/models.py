@@ -23,10 +23,3 @@ class Post(models.Model):
 
     def __str__(self):
         return self.text[:50]
-
-
-class AllRequest(models.Model):
-    user = models.CharField(max_length=100)
-    cex_result = models.BigIntegerField(default='0')
-    cex_plan_result = models.BigIntegerField(default='0')
-    cex_befect_result = models.BigIntegerField(default='0')

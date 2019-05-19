@@ -217,6 +217,8 @@ class Analitic(View):
 		rezultat, rezultat1, rezultat2, index = 0, 0, 0, 0
 		default_items, rez_all_plan, rez_all_defect, labels = [], [], [], []
 		for use in User.objects.all().values_list('username', flat=True):
+			if not Post.objects.filter(user=User.objects.get(username=use)):
+				continue
 			labels.append(User.objects.get(username=use).first_name)
 			for post in Post.objects.filter(user=User.objects.get(username=use)):
 				rezult_procent = int((((post.plan_rez - post.plan_defect) / post.plan_clock_rez) * 100) /
@@ -240,12 +242,14 @@ class Analitic(View):
 
 
 class ChartRezAll(APIView):
-	def get(self, request, username):
+	def get(self, request, username, id):
 		rezultat, rezultat1, rezultat2, index = 0, 0, 0, 0
 		default_items, rez_all_plan, rez_all_defect, labels = [], [], [], []
 		if not check_auth(request):
 			return HttpResponseRedirect('/')
 		for use in User.objects.all().values_list('username', flat=True):
+			if not Post.objects.filter(user=User.objects.get(username=use)):
+				continue
 			labels.append(User.objects.get(username=use).first_name)
 			for post in Post.objects.filter(user=User.objects.get(username=use)):
 				rezult_procent = int(
@@ -266,9 +270,16 @@ class ChartRezAll(APIView):
 			'rez_all_defect': rez_all_defect,
 		})
 
+	def delete(self, username, id):
+		try:
+			if not check_auth(self):
+				return HttpResponseRedirect('/')
+			Post.objects.get(id=id).delete()
+			return HttpResponseRedirect('/user/' + username)
+		except Post.DoesNotExist:
+			return HttpResponseNotFound("<h2>Person not found</h2>")
 
-class EditPerson(View):
-	def edit(self, username, id):
+	def put(self, username, id):
 		try:
 			if not check_auth(self):
 				return HttpResponseRedirect('/')
@@ -285,16 +296,5 @@ class EditPerson(View):
 				return HttpResponseRedirect('/user/' + username)
 			else:
 				return render(self, "edit.html", {"person": person})
-		except Post.DoesNotExist:
-			return HttpResponseNotFound("<h2>Person not found</h2>")
-
-
-class DeletePerson(View):
-	def delete(self, username, id):
-		try:
-			if not check_auth(self):
-				return HttpResponseRedirect('/')
-			Post.objects.get(id=id).delete()
-			return HttpResponseRedirect('/user/' + username)
 		except Post.DoesNotExist:
 			return HttpResponseNotFound("<h2>Person not found</h2>")

@@ -5,7 +5,7 @@ class PostForm(forms.Form):
     text = forms.CharField(widget=forms.TextInput(attrs={
         'size': 30,
         'class': 'form-control',
-        'placeholder': 'Введите ФИО работника'
+        'placeholder': 'Введите Ф.И.О. сотрудника'
     }), max_length=100, min_length=3)
     specialty = forms.CharField(widget=forms.TextInput(attrs={
         'size': 30,
@@ -35,7 +35,7 @@ class PostForm(forms.Form):
     plan_defect = forms.IntegerField(widget=forms.NumberInput(attrs={
         'size': 30,
         'class': 'form-control',
-        'placeholder': 'Введите количество брака',
+        'placeholder': 'Введите количество недочётов',
     }), max_value=99999, min_value=0)
 
 

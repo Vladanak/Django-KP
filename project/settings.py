@@ -22,12 +22,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'posts',
-    'user_profile',
     'googlecharts',
     'qsstats',
     'chartjs',
     'rest_framework',
     'weasyprint',
+    'rest_framework_swagger',
 ]
 
 MIDDLEWARE = [
@@ -115,8 +115,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/sвtatic-files/
 
 STATIC_URL = '/static/'
-
-LOGIN_URL = '/'
 
 ADMIN_SITE_HEADER = "Администрирование персонала"
 

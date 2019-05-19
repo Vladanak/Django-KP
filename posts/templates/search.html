@@ -8,17 +8,16 @@
                     {{ search.q.errors }}
                     {{ search.q }}
                     <button class="btn btn-primary" type="sumbit">Поиск</button>
+					<button class="btn btn-info pull-right"  onclick='window.history.back()'> Назад </button>
                 </div>
             </form>
 {% endblock %}
 {% block content %}
     <div class="posts">
-
     </div>
 {% endblock %}
 
 {% block js %}
     <script src="{% static 'js/search.js' %}">
-
     </script>
 {% endblock %}
