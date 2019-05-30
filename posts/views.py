@@ -1,6 +1,8 @@
 import json
 import weasyprint
 from weasyprint import HTML
+from posts.snippets.models import UserSerializer
+from posts.snippets.models import PostSerializer
 from .models import Post
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
@@ -20,6 +22,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.contrib.auth import logout
 from django.conf import settings
+from rest_framework import viewsets
 
 User = get_user_model()
 
@@ -177,10 +180,11 @@ class PdfView(View):
 	def pdf_generation(self, username):
 		if not check_auth(self):
 			return HttpResponseRedirect('/')
+		path = settings.STATIC_ROOT.replace('staticfiles', 'posts/templates/')
 		return HttpResponse(HTML(string=render_to_string('pdfCheck.html', {
 			'posts': Post.objects.filter(user=User.objects.get(username=username))}
 														 )).write_pdf(
-			stylesheets=[weasyprint.CSS(settings.STATIC_ROOT + 'base/bootstrap.min.css')]),
+			stylesheets=[weasyprint.CSS(path + 'base/bootstrap.min.css')]),
 			content_type='application/pdf')
 
 
@@ -242,7 +246,7 @@ class Analitic(View):
 
 
 class ChartRezAll(APIView):
-	def get(self, request, username, id):
+	def get(self, request, username):
 		rezultat, rezultat1, rezultat2, index = 0, 0, 0, 0
 		default_items, rez_all_plan, rez_all_defect, labels = [], [], [], []
 		if not check_auth(request):
@@ -270,16 +274,9 @@ class ChartRezAll(APIView):
 			'rez_all_defect': rez_all_defect,
 		})
 
-	def delete(self, username, id):
-		try:
-			if not check_auth(self):
-				return HttpResponseRedirect('/')
-			Post.objects.get(id=id).delete()
-			return HttpResponseRedirect('/user/' + username)
-		except Post.DoesNotExist:
-			return HttpResponseNotFound("<h2>Person not found</h2>")
 
-	def put(self, username, id):
+class EditPerson(View):
+	def edit(self, username, id):
 		try:
 			if not check_auth(self):
 				return HttpResponseRedirect('/')
@@ -298,3 +295,30 @@ class ChartRezAll(APIView):
 				return render(self, "edit.html", {"person": person})
 		except Post.DoesNotExist:
 			return HttpResponseNotFound("<h2>Person not found</h2>")
+
+
+class DeletePerson(View):
+	def delete(self, username, id):
+		try:
+			if not check_auth(self):
+				return HttpResponseRedirect('/')
+			Post.objects.get(id=id).delete()
+			return HttpResponseRedirect('/user/' + username)
+		except Post.DoesNotExist:
+			return HttpResponseNotFound("<h2>Person not found</h2>")
+
+
+class UserViewSet(viewsets.ModelViewSet):
+	"""
+    API endpoint that allows users to be viewed or edited.
+	"""
+	queryset = User.objects.all().order_by('-date_joined')
+	serializer_class = UserSerializer
+
+
+class PostViewSet(viewsets.ModelViewSet):
+	"""
+	API endpoint that allows posts to be viewed or edited.
+	"""
+	queryset = Post.objects.all()
+	serializer_class = PostSerializer
