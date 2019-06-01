@@ -128,8 +128,6 @@ class Registr(View):
 
 class ChartData(APIView):
 	def get(self, request, username):
-		if not check_auth(request):
-			return HttpResponseRedirect('/')
 		labels, default_items, chart_plan, chart_plan_rez, chart_clock, chart_clock_rez =\
 			[], [], [], [], [], []
 		for post in Post.objects.filter(user=User.objects.get(username=username)):
@@ -190,8 +188,6 @@ class PdfView(View):
 
 class ChartRez(APIView):
 	def get(self, request, username):
-		if not check_auth(request):
-			return HttpResponseRedirect('/')
 		labels, default_items = [], []
 		for post in Post.objects.filter(user=User.objects.get(username=username)):
 			labels.append(post.text)
@@ -249,8 +245,6 @@ class ChartRezAll(APIView):
 	def get(self, request, username):
 		rezultat, rezultat1, rezultat2, index = 0, 0, 0, 0
 		default_items, rez_all_plan, rez_all_defect, labels = [], [], [], []
-		if not check_auth(request):
-			return HttpResponseRedirect('/')
 		for use in User.objects.all().values_list('username', flat=True):
 			if not Post.objects.filter(user=User.objects.get(username=use)):
 				continue
